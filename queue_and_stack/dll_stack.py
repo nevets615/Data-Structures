@@ -7,12 +7,17 @@ class Stack:
         self.size = 0
         # Why is our DLL a good choice to store our elements?
         # self.storage = ?
-
+        self.storage = DoublyLinkedList()
     def push(self, value):
-        pass
-
+        self.storage.add_to_head(value)
+        self.size += 1
     def pop(self):
-        pass
+        popItem = None
+        if self.storage.head != None:
+            popItem = self.storage.head.value
+            self.storage.remove_from_head()
+            self.size -= 1
+        return popItem
 
     def len(self):
-        pass
+        return self.size

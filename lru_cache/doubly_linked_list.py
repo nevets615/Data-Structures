@@ -49,25 +49,68 @@ class DoublyLinkedList:
         return self.length
 
     def add_to_head(self, value):
-        pass
+        if self.head == None:
+            self.head = ListNode(value)
+            self.tail = self.head
+        else:
+            self.head.insert_before(value)
+            self.head = self.head.prev
+        self.length += 1
 
     def remove_from_head(self):
-        pass
+        freed_item = self.head
+        if freed_item == None:
+            return None
+        elif freed_item.next == None:
+            self.tail = None
+        self.head.delete()
+        self.head = freed_item.next
+        self.length -= 1
+        return freed_item.value
 
     def add_to_tail(self, value):
-        pass
+        if self.tail == None:
+            self.add_to_head(value)
+        else:
+            self.tail.insert_after(value)
+            self.tail = self.tail.next
+            self.length += 1
 
     def remove_from_tail(self):
-        pass
+        freed_item = self.tail
+        if freed_item == None:
+            return None
+        elif freed_item.prev == None:
+            self.head = None
+        self.tail.delete()
+        self.tail = freed_item.prev
+        self.length -= 1
+        return freed_item.value
 
     def move_to_front(self, node):
-        pass
-
+        self.add_to_head(node.value)
+        self.delete(node)
     def move_to_end(self, node):
-        pass
+        self.add_to_tail(node.value)
+        self.delete(node)
+
 
     def delete(self, node):
-        pass
+        if self.head == node:
+            self.remove_from_head()
+        elif self.tail == node:
+            self.remove_from_tail()
+        else:
+            node.delete()
+            self.length -= 1
+            return node.value
 
     def get_max(self):
-        pass
+        current_item = self.head
+        maximum = current_item.value
+        while current_item.next != None:
+            if current_item.next.value > maximum:
+                maximum = current_item.next.value
+            current_item = current_item.next
+
+        return maximum

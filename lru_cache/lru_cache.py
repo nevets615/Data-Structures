@@ -7,7 +7,9 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        if limit <= 0:
+            raise ValueError("limit > 0")
+        self.get_max = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +19,10 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key not in self.hash_map:
+            return -1
+        
+        node = self.hash_map[key]
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +35,6 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        if key in self.hash_map:
+            node = self.hash_map[key]
+            node.value = value
